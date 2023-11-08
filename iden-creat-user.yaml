@@ -1,0 +1,20 @@
+---
+- name: create user {{ user }}
+  hosts: 1-1.practice-k8s.cloud
+  vars:
+    user: user_paul
+  tasks:
+    - name: check-user
+      command: id {{ user }}
+      register: iduser
+    - name: 
+      debug:
+        var: iduser 
+    - name: before-check
+      fail:
+        msg: user already exists
+      when: iduser.rc == 0
+    - name: create user {{ user }}
+      command: useradd  {{ user }}
+
+ 

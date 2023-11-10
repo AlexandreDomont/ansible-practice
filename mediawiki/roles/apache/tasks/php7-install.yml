@@ -1,0 +1,26 @@
+- name: "epel activation"
+  dnf:
+    name: "epel-release"
+    state: present
+
+- name: Install epel repo.
+  dnf:
+    name: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm"
+    state: present
+
+- name: "remi repo activation"
+  dnf:
+    name: "https://rpms.remirepo.net/enterprise/remi-release-9.rpm"
+    state: present
+    disable_gpg_check: true
+
+- name: "Active php7.4.3 remi module"
+  command: dnf module enable php:remi-7.4 -y
+
+- name: "install php7.4 packages"
+  dnf:
+    name: "php,php-mysqlnd,php-xml,php-mbstring,php-mcrypt,php-gd,php-intl"
+    state: latest
+    enablerepo: "remi-php7.4"
+  changed_when: true  # We need to restart apache 
+  notify: [ "apache restart" ]

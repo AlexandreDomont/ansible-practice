@@ -1,0 +1,6 @@
+---
+- name: "Apache installation" 
+  hosts: 1-1.practice-k8s.cloud
+  roles: 
+    - role: "apache-galaxy"
+    - role: "apache-config"

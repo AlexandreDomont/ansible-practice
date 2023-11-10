@@ -1,0 +1,6 @@
+- name: Dig
+  hosts: localhost
+  tasks:
+   - name: bbabab
+     debug:
+       var: "{{ lookup('dig', groups['apache'][0]) }}"		

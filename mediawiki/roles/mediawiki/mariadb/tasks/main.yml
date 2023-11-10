@@ -1,0 +1,21 @@
+- name: Update MySQL root password for localhost root account (5.7.x).
+  ansible.builtin.shell: >
+     mysql -NBe 'SET PASSWORD FOR "root"@"localhost" = PASSWORD("{{ mysql_root_password }}"); FLUSH PRIVILEGES;'    
+
+- name: "mediawiki database" 
+  community.mysql.mysql_db:
+    name: "{{mediawiki_db_name}}"     
+    login_user: root
+    login_password: "{{ mysql_root_password }}"
+    state: present 
+    
+- name: "mediawiki user+privileges" 
+  mysql_user: 
+    name:     "{{mediawiki_db_user}}" 
+    password: "{{mediawiki_db_password}}" 
+    priv:     "{{mediawiki_db_name}}.*:ALL" 
+    host:     "{{item}}"
+    login_user: root
+    login_password: "{{ mysql_root_password }}"
+    state:    present 
+  with_items: "{{ lookup('dig', groups['apache'][0]) }}"

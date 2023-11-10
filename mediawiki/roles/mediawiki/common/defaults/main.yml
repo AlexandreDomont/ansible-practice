@@ -1,0 +1,26 @@
+# Default schema 
+mediawiki_db_name: "mediawiki" 
+ 
+# Default user for mediawiki 
+mediawiki_db_user: "mediawiki" 
+mediawiki_db_password: "mediawiki"
+
+# root MariaDB
+mysql_root_password: "sdsdsklmskd45sqSS"
+
+# default mediawiki administrator
+mediawiki_admin_user:     "admin"
+mediawiki_admin_password: "@adm1n@adm1n"
+
+mediawiki_name: "mediawiki"
+mediawiki_title: "ELS"
+
+mediawiki_directory: "/var/www/html/{{mediawiki_name}}"
+mediawiki_maintenance_directory: "{{mediawiki_directory}}/maintenance"
+
+# default database host: first machine from group mysql
+mediawiki_db_host: "{{groups.mysql.0}}"
+
+mediawiki_archive_url: "https://releases.wikimedia.org/mediawiki/1.38/mediawiki-core-1.38.3.tar.gz"
+
+mediawiki_skins_url: "https://extdist.wmflabs.org/dist/skins/MonoBook-REL1_38-afefe70.tar.gz"
